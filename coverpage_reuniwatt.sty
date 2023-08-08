@@ -1,0 +1,41 @@
+% Reuniwatt cover page
+\ProvidesPackage{coverpage_reuniwatt}[2015/08/10 v.01 an
+example package^^J for wikibooks]
+\RequirePackage{graphicx}
+\RequirePackage[absolute]{textpos}
+\RequirePackage[skins]{tcolorbox}
+
+\setlength{\TPVertModule}{1mm}
+\setlength{\TPHorizModule}{1mm}
+
+\newcommand{\myboxwidth}{150}
+\newcommand{\myboxheight}{60}
+\newcommand{\myboxposx}{30}
+\newcommand{\myboxposy}{80}
+
+\newcommand*{\project}[1]{\gdef\@project{#1}%
+}
+\renewcommand*{\maketitle}{%
+\begin{titlepage}
+{\raggedright\vspace*{-3cm}
+	\includegraphics[scale=0.2]{reuniwatt.jpg}
+	\hfill Page \thepage/{\pageref{LastPage}}
+}
+{\begin{textblock}{\myboxwidth}(\myboxposx,\myboxposy)
+  \noindent%
+  \begin{tcolorbox}[top=25pt,bottom=25pt,sharp corners,left skip=0pt,width={\dimexpr\myboxwidth mm},boxrule=2pt,nobeforeafter,enhanced jigsaw,colback=white,colframe=red,halign=flush left]
+  {\centering\huge\bfseries\@title\unskip\strut\par}
+  \end{tcolorbox}
+\end{textblock}
+}
+\vfill
+\centering
+{\textcolor{red}{\hrule}}
+\vspace{0.25cm}
+{\footnotesize Reuniwatt SAS, 14 rue de la Guadeloupe, 97490 Sainte-Clotilde\\
+Tel : 06.92.64.43.13 / Fax : 02.62.92.10.20 / courriel : info@reuniwatt.com\\
+Soci\'{e}t\'{e} par Actions Simplifi\'{e}e au capital de 191.700\euro\ RCS Saint-Denis 518 919 345}
+\vspace{-2cm}
+\end{titlepage}
+}
+\endinput
