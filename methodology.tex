@@ -1,0 +1,33 @@
+\section{Methodology}
+\subsection{Data source}
+\cite{verbois_statistical_2022} demonstrated that using a large set of predictors can significantly improve the performances of post-processing models, while \cite{suksamosorn_post-processing_2021}
+selected WRF forecasts of irradiance, temperature, relative humidity and the solar zenith angleas relevant inputs of the models.
+
+The forecasted data is for each day the one relative to the origin 00:00 UTC of the day before.
+Our initial data source for the forecasts was GFS, and we opted for the following set of predictors, easily available for any location:
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth} { 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X
+  | >{\centering\arraybackslash}X 
+  |}
+ \hline
+ $ghi_{GFS}$ & $T_{GFS}^{2m}$ & $\theta$ & $\phi$ & $ghi_{cs}$ \\
+ \hline
+ \scriptsize Irradiance forecasted  & \scriptsize Temperature forecasted 2 meters above the ground & \scriptsize Zenith angle & \scriptsize Azimuth angle & \scriptsize Clear-sky irradiance \\
+\hline
+\end{tabularx}
+    \caption{Set of predictors.}
+    \label{tab:set_pred}
+\end{table}
+
+\cite{verbois_statistical_2022} advises researchers to analyze theirs models' performances over several years but I was at this point limited by the Reuniwatt API, thus
+I opted initially for learning during 2020 and testing during 2021.
+The four inital 
+\subsection{Metrics}
+\subsection{Models investigated}
+\subsection{Model performances evaluation strategy}
