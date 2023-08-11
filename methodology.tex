@@ -27,7 +27,82 @@ Our initial data source for the forecasts was GFS, and we opted for the followin
 
 \cite{verbois_statistical_2022} advises researchers to analyze theirs models' performances over several years but I was at this point limited by the Reuniwatt API, thus
 I opted initially for learning during 2020 and testing during 2021.
-The four inital 
+
+The four initial study sites are the following:
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/initial_study_sites.png}
+    \caption{Four initial study sites}
+\end{figure}
 \subsection{Metrics}
-\subsection{Models investigated}
+Even if papers like \cite{mayer_calibration_2023} state that the correlation coefficient is the recommended metrics to use when no clear directive is given, the metrics 
+that I am going to investigate are the one already prefered by Reuniwatt, The mean absolute error (MAE) and the root mean square error (RMSE). 
+
+
+\begin{itemize}
+    \item The mean absolute error \begin{align*}
+        MAE = \frac{1}{N} \sum_{i=1}^{N} | I_{forecast, i} - I_{measure, i} |
+    \end{align*}
+
+    \item The mean bias error \begin{align*}
+        MBE = \frac{1}{N} \sum_{i=1}^{N} ( I_{forecast, i} - I_{measure, i} )
+    \end{align*}
+
+    \item The root mean square error \begin{align*}
+        RMSE = \sqrt{\frac{1}{N} \sum_{i=1}^{N} ( I_{forecast, i} - I_{measure, i} ) ^{2}}
+    \end{align*}
+
+    \item The skill score $s$  of a certain accuracy measure $A$, with R denoting the reference irradiance
+    \begin{align*}
+        s = 1 - \frac{A(X,Y)}{A(R,Y)}
+    \end{align*}
+\end{itemize}
+
+I also wanted to investigate an MBE optimization, but the results were not convincing and MBE is more seen in our study as a metrics to verify after post-processing.
+We indeed aim at the lowest absolute MBE.
+\subsection{Models investigated and strategy}
+Our bibliography study leads us toward the most relevant models to be tested.
+
+Concerning the reference model, \cite{lorenz_benchmarking_nodate} and others suggested the use of the persistence model, consisting in taking as prediction the latest measure available,
+but this model turned out to have too poor results to be a good reference model. I opted for using the raw forecasted value as the reference model.
+
+\cite{suksamosorn_post-processing_2021} proposed a really interesting linear model based on a Kalman filter scheme. Hence the Kalman filter was first used as a promising linear model to be 
+assessed against heavier non-linear machine learning models.
+
+On the hand of machine learning models, \cite{verbois_statistical_2022} distinguished the models effective to reduce the RMSE, including multi-layer perceptron (MLP) and gradient boosting machine (GBM),
+and the models promising for reducing the MAE, notably the standard vector regression (SVR).
+\cite{suksamosorn_post-processing_2021} also pointed out the effectiveness of the random forest (RF) model for a RMSE-optimization.
+
+It's why I am going to compare the following models, against the reference raw forecasted irradiance.
+\begin{itemize}
+    \item Kalman filter model (KF).
+
+The Kalman filter is a recursive estimator. This means that only the estimated state from the previous time step and the current measurement are needed to compute the estimate for the current state.
+
+The correction procedure involves two groups of equations: time update equations
+and measurements update equations, time update equations are responsible for making
+a first guess of the next solar irradiance prediction error, based on the last state of the
+measured error and error covariance estimates, obtaining an a priori prediction for the next
+time step; the measurement update equations will then incorporate new measurements
+into the first guess, obtaining improved a posteriori predictions.
+
+My understanding of the general Kalman filter was greatly thanks to \cite{kfbasis}, and I practised the filter thanks to \cite{kfpractise}.
+
+In the context of irradiance forecasting, I followed the path from \cite{suksamosorn_post-processing_2021}.
+    \item Gradient boosting machine model (GBM).
+GBM creates an ensemble of weak learners, meaning that it combines several smaller, simpler models in order to obtain a more accurate prediction than what an individual model would produce. Gradient boosting works by iteratively training the weak learners on gradient-based functions and incorporating them into the model as “boosted” participants. 
+For more information, see notably \cite{GBMbasis} for the theory and \cite{GBMpractise} for the python practise.
+    \item Support vector regression model (SVR).
+    The standard vector regression method is often used in cases where there are multiple input variables, each of which may have an effect on the output variable. The goal is to find the best linear combination of these input variables to predict the output variable.
+
+To estimate the coefficients of the linear function, standard vector regression uses a method called least squares regression. This involves finding the values of the coefficients that minimize the sum of the squared differences between the predicted and actual values.
+    Here is an interesting article on the subject: \cite{SVR}.
+    \item Random forest model (RF).
+    The Random Forest algorithm is an ensemble method used for machine learning. It creates multiple decision trees, each trained on a different subset of data and considering random features for splitting. The final prediction is made by combining the predictions of these trees through voting (for classification) or averaging (for regression), resulting in improved accuracy and reduced overfitting.
+Again, here is a link for a hands-on practise of the RF algorithm: \cite{RF}.
+    \item Multiple-layer perceptron model (MLP).
+The Multilayer Perceptron (MLP) is a type of artificial neural network used in machine learning. It consists of multiple layers of interconnected nodes (neurons) where each node computes a weighted sum of its inputs, passes it through an activation function, and then forwards the result to the next layer. MLPs are commonly used for various tasks such as classification, regression, and pattern recognition, and they can learn complex relationships in data. They can be trained using backpropagation, adjusting the weights between nodes to minimize the difference between predicted and actual outputs.
+
+\end{itemize}
+
 \subsection{Model performances evaluation strategy}
