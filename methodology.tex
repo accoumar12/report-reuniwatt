@@ -60,7 +60,7 @@ that I am going to investigate are the one already prefered by Reuniwatt, The me
 
 I also wanted to investigate an MBE optimization, but the results were not convincing and MBE is more seen in our study as a metrics to verify after post-processing.
 We indeed aim at the lowest absolute MBE.
-\subsection{Models investigated and strategy}
+\subsection{Models investigated}
 Our bibliography study leads us toward the most relevant models to be tested.
 
 Concerning the reference model, \cite{lorenz_benchmarking_nodate} and others suggested the use of the persistence model, consisting in taking as prediction the latest measure available,
@@ -104,5 +104,16 @@ Again, here is a link for a hands-on practise of the RF algorithm: \cite{RF}.
 The Multilayer Perceptron (MLP) is a type of artificial neural network used in machine learning. It consists of multiple layers of interconnected nodes (neurons) where each node computes a weighted sum of its inputs, passes it through an activation function, and then forwards the result to the next layer. MLPs are commonly used for various tasks such as classification, regression, and pattern recognition, and they can learn complex relationships in data. They can be trained using backpropagation, adjusting the weights between nodes to minimize the difference between predicted and actual outputs.
 
 \end{itemize}
-
+All this models we'll be compared during the internhip, and all the data wrangling architecture around it can be found either in the README or more specifically in the source code of my repo \cite{myrepo}.
 \subsection{Model performances evaluation strategy}
+The benchmarking consists in evaluating the performances on each metrics of each one of the model optimized with the corresponding metrics.
+
+We assess the performances of the trained models on their performances on the test year.
+
+The big picture will be given by a global significance matrix that will compare all the models performances regarding the particular metrics across the 4 sites.
+
+This matrix will allow us to discern the most pertinent models for each of our study metrics.
+
+Then, to verify that the models indeed perform well in the detail and across the different times of the day, we are going to plot scatter plots and data distributions of the MBE for each site.
+
+This dual approach will ensure us that global results indeed translate into improved performances for each hour of the day.
