@@ -146,3 +146,36 @@
     \includegraphics[width=\columnwidth]{figures/first_study/comp_predictors_rmse_mlp.png}
 \caption{Comparison of the RMSE skill scores of the different configurations.}
 \end{figure}
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/first_study/comp_learning_period_rmse.png}
+\caption{Pairwise systematicity matrix for RMSE. The value $V_{i,j}$ of the cell $(i,j)$ indicates how often the learning period duration (in months) of line i performs the best, across the 4 sites, for the model of column j. For example, having a 12-months-long learning period is the best thing in 3 sites out of 4 with a SVR model, the last site performs better with a 6-month-long learning period.}
+\end{figure}
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/first_study/comp_learning_period_rmse_mlp.png}
+\caption{Comparison of the RMSE skill scores of the different learning period durations (in months).}
+\end{figure}
+
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/first_study/comp_window_rmse.png}
+\caption{Pairwise systematicity matrix concerning window type for RMSE.}
+\end{figure}
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/first_study/comp_window_rmse_mlp.png}
+\caption{Comparison of the RMSE skill scores for a SVR model.}
+\end{figure}
+
+\begin{figure}[htb!]
+    \centering
+    \includesvg[width=\columnwidth]{figures/first_study/comp_for_models_rmse.svg}
+\caption{Comparison of the post-processing of four different NWP forecast models on RMSE.}
+\end{figure}
+
+\section{Filtering of the measures}
