@@ -1,16 +1,20 @@
 \section{Introduction}
 \subsection{Background and motivation of the intership project}
-This report is the result of my 6-month internship that took place in Reuniwatt, a leader in cloud observation and forecasting.
+This report is the result of my 6-month internship in Reuniwatt, a leader in cloud observation and forecasting.
 My internship extended from March 1st to August 31st, taking place during the second semester of my academic gap.
 
 The main subject of the intership was the post-processing of the day ahead NWP irradiance forecasts.
 Despite their proven utility for day-ahead irradiance forecasting, NWP models predictions can still be improved thanks to post-processing.
-As i will show in \ref{sec:literature_review}, many models have been investigated in the literature, and it's thus important to draw a clear benchmark
+
+As I will show in \ref{subsec:models}, many models have been investigated in the literature, and it is thus important to draw a clean benchmark
 of all the available state-of-the-art models.
+
+Statistical models will be investigated, whose applications do not restrict to day-ahead irradiance forecasts. Indeed any timestamped weather-related variable could benefit
+of the post-processing I am going to discuss in this paper.
 \subsection{Objectives of the internship}
 Hereafter the main objectives of the internship:
 \begin{itemize}
-    \item  Benchmark several models on the post-processing of a single NWP model.
+    \item Benchmark promising models on the post-processing of a single NWP model.
     \item Sensitivity study of the models.
     \item Comparison of the results with the current model used by Reuniwatt for day-ahead forecasting (LT CONT).
 \end{itemize}

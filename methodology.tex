@@ -4,8 +4,10 @@
 \cite{verbois_statistical_2022} demonstrated that using a large set of predictors can significantly improve the performances of post-processing models, while \cite{suksamosorn_post-processing_2021}
 selected WRF forecasts of irradiance, temperature, relative humidity and the solar zenith angleas relevant inputs of the models.
 
-The forecasted data is for each day the one relative to the origin 00:00 UTC of the day before.
-Our initial data source for the forecasts was GFS, and we opted for the following set of predictors, easily available for any location:
+Our initial data source for the forecasts was GFS, and we opted for the following set of predictors (\ref{tab:set_pred}), both simple and easily available for any location.
+
+The forecasted data is for each day the one relative to the origin 00:00 UTC of the day before. The irradiance explored during my internship is the global horizontal irradiance (GHI), which is
+the total solar radiation incident on a horizontal surface.
 
 \begin{table}[h]
     \centering
@@ -26,19 +28,22 @@ Our initial data source for the forecasts was GFS, and we opted for the followin
     \label{tab:set_pred}
 \end{table}
 
-\cite{verbois_statistical_2022} advises researchers to analyze theirs models' performances over several years but I was at this point limited by the Reuniwatt API, thus
-I opted initially for learning during 2020 and testing during 2021.
+\cite{verbois_statistical_2022} advises researchers to analyze their models performances over several years but I was at this point limited by the Reuniwatt API, thus
+I initially opted for learning during 2020 and testing during 2021.
 
-The four initial study sites are the following:
+The four initial study sites are the following (\ref{fig:initial_sites}):
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=\textwidth]{figures/initial_study_sites.png}
+    \includegraphics[width=0.7\textwidth]{figures/initial_study_sites.png}
     \caption{Four initial study sites}
+    \label{fig:initial_sites}
 \end{figure}
 \subsection{Metrics}
 Even if papers like \cite{mayer_calibration_2023} state that the correlation coefficient is the recommended metrics to use when no clear directive is given, the metrics 
-that I am going to investigate are the one already prefered by Reuniwatt, The mean absolute error (MAE) and the root mean square error (RMSE). 
+that I am going to investigate are the one already prefered by Reuniwatt, the mean absolute error (MAE) and the root mean square error (RMSE). 
 
+I also wanted to investigate the MBE optimization, but the results were not convincing and MBE is more seen in our study as a metrics to be verified after post-processing.
+We indeed aim at the lowest absolute MBE.
 
 \begin{itemize}
     \item The mean absolute error \begin{align*}
@@ -59,9 +64,7 @@ that I am going to investigate are the one already prefered by Reuniwatt, The me
     \end{align*}
 \end{itemize}
 
-I also wanted to investigate an MBE optimization, but the results were not convincing and MBE is more seen in our study as a metrics to verify after post-processing.
-We indeed aim at the lowest absolute MBE.
-\subsection{Models investigated}
+\subsection{Models investigated}\label{subsec:models}
 Our bibliography study leads us toward the most relevant models to be tested.
 
 Concerning the reference model, \cite{lorenz_benchmarking_nodate} and others suggested the use of the persistence model, consisting in taking as prediction the latest measure available,
@@ -92,20 +95,25 @@ My understanding of the general Kalman filter was greatly thanks to \cite{kfbasi
 In the context of irradiance forecasting, I followed the path from \cite{suksamosorn_post-processing_2021}.
     \item Gradient boosting machine model (GBM).
 GBM creates an ensemble of weak learners, meaning that it combines several smaller, simpler models in order to obtain a more accurate prediction than what an individual model would produce. Gradient boosting works by iteratively training the weak learners on gradient-based functions and incorporating them into the model as “boosted” participants. 
+
 For more information, see notably \cite{GBMbasis} for the theory and \cite{GBMpractise} for the python practise.
     \item Support vector regression model (SVR).
-    The standard vector regression method is often used in cases where there are multiple input variables, each of which may have an effect on the output variable. The goal is to find the best linear combination of these input variables to predict the output variable.
+
+    The support vector regression method is often used in cases where there are multiple input variables, each of which may have an effect on the output variable. The goal is to find the best linear combination of these input variables to predict the output variable.
 
 To estimate the coefficients of the linear function, standard vector regression uses a method called least squares regression. This involves finding the values of the coefficients that minimize the sum of the squared differences between the predicted and actual values.
     Here is an interesting article on the subject: \cite{SVR}.
     \item Random forest model (RF).
+
     The Random Forest algorithm is an ensemble method used for machine learning. It creates multiple decision trees, each trained on a different subset of data and considering random features for splitting. The final prediction is made by combining the predictions of these trees through voting (for classification) or averaging (for regression), resulting in improved accuracy and reduced overfitting.
+
 Again, here is a link for a hands-on practise of the RF algorithm: \cite{RF}.
     \item Multiple-layer perceptron model (MLP).
+
 The Multilayer Perceptron (MLP) is a type of artificial neural network used in machine learning. It consists of multiple layers of interconnected nodes (neurons) where each node computes a weighted sum of its inputs, passes it through an activation function, and then forwards the result to the next layer. MLPs are commonly used for various tasks such as classification, regression, and pattern recognition, and they can learn complex relationships in data. They can be trained using backpropagation, adjusting the weights between nodes to minimize the difference between predicted and actual outputs.
 
 \end{itemize}
-All this models we'll be compared during the internhip, and all the data wrangling architecture around it can be found either in the README or more specifically in the source code of my repo \cite{myrepo}.
+All this models will be compared during the internhip, and all the data wrangling architecture around it can be found either in the README or more specifically in the source code of my repo \cite{myrepo}.
 After having post-processed a single NWP forecast model individually, the next step will be to assess the performances of our hybrid model in comparison to the one currently used by Reuniwatt (LT CONT).
 \subsection{Model performances evaluation strategy}
 The benchmarking consists in evaluating the performances on each metrics of each one of the model optimized with the corresponding metrics.
