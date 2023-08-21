@@ -114,16 +114,17 @@ The Multilayer Perceptron (MLP) is a type of artificial neural network used in m
 
 \end{itemize}
 All this models will be compared during the internhip, and all the data wrangling architecture around it can be found either in the README or more specifically in the source code of my repo \cite{myrepo}.
+
 After having post-processed a single NWP forecast model individually, the next step will be to assess the performances of our hybrid model in comparison to the one currently used by Reuniwatt (LT CONT).
 \subsection{Model performances evaluation strategy}
 The benchmarking consists in evaluating the performances on each metrics of each one of the model optimized with the corresponding metrics.
 
+A grid search which details can be explored in \cite{myrepo} is used for the learning year in order to find the best hyperparameters for any of the model.
+
 We assess the performances of the trained models on their performances on the test year.
 
 The big picture will be given by a global significance matrix that will compare all the models performances regarding the particular metrics across the 4 sites.
-
 This matrix will allow us to discern the most pertinent models for each of our study metrics.
-
 Then, to verify that the models indeed perform well in the detail and across the different times of the day, we are going to plot scatter plots and data distributions of the MBE for each site.
 
-This dual approach will ensure us that global results indeed translate into improved performances for each hour of the day.
+This dual approach will ensure us that global results indeed translate into improved performances for each hour of the day, and especially in term of bias (MBE).

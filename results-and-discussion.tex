@@ -1,38 +1,57 @@
 \section{Results and discussion}
 % Define a custom command to create sections with shared structure
 
-As explained in \ref{sec:methodo}, the first objective is to effectively post-process a single NWP forecast model, by benchmarking the models altogether. 
+As explained in \autoref{sec:methodo}, the first objective is to effectively post-process a single NWP forecast model, by benchmarking the models altogether. 
 
 The following step will be to look at the results in the details to prove the true effectiveness of the post-processing.
+
+We will each time first study the MAE optimisation and then the RMSE optimisation. Be aware that the models hyperparameters may vary between the two optimisations because the 
+target metrics to minimize is not the same during the computations.
 \subsection{Post-processing of a single forecasting NWP model}
 \subsubsection{Study of the models altogether} 
-\paragraph{MAE}
+\paragraph{MAE}\indent
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=\columnwidth]{figures/first_study/significance_matrix_mae.png}
 \caption{Significance matrix for MAE. The value $V_{(i,j)}$ of the $(i,j)$ cell indicates how often the model of line i performs better than the one of column j, across the 
 4 sites. For example, the MAE of the MLP model post-processed data is 3 times lower than the MAE of the reference model, and for 1 site (4 - 3 = 1), it is higher.}
+\label{fig:sig_mae}
 \end{figure}
 
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=\columnwidth]{figures/first_study/ss_mae.png}
     \caption{MAE skill score plot across the 4 sites.}
+\label{fig:ss_mae}
 \end{figure}
-\paragraph{RMSE}
+\autoref{fig:sig_mae} clearly shows that the SVR model is the best one for MAE. It performs better than any of the other model on any of the 4 study cases.
+
+\autoref{fig:ss_mae} demonstrates that the sites 1, 3 and 4 heavily benefit from this model with respect to the other ones. 
+On site 4, the only positive post-processing is given by the SVR model.
+
+The Kalman filter showcases really poor performances across the 4 sites.
+
+\newpage
+\paragraph{RMSE}\indent
 
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=\columnwidth]{figures/first_study/significance_matrix_rmse.png}
 \caption{Significance matrix for RMSE. The value $V_{(i,j)}$ of the $(i,j)$ cell indicates how often the model of line i performs better than the one of column j, across the 
 4 sites. For example, the RMSE of the MLP model post-processed data is 3 times lower than the RMSE of the reference model, and for 1 site (4 - 3 = 1), it is higher.}
+\label{fig:sig_rmse}
 \end{figure}
 
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=0.75\columnwidth]{figures/first_study/ss_rmse.png}
     \caption{RMSE skill score plot across the 4 sites.}
+    \label{fig:ss_rmse}
 \end{figure}
+
+The results of the RMSE are not the same, and it is the MLP model that performs the best, achieving the highest score in the matrix of \autoref{fig:sig_rmse}.
+
+This is confirmed by \autoref{fig:ss_rmse} where the MLP model bar is the highest for 3 sites out of 4.
 
 \subsubsection{Detailled study of the most performing model}
 With the aim of clarity, only the plots of the single site 2 will be shown here.
@@ -40,7 +59,7 @@ The overall similarity of the results across the 4 sites also motivate this choi
 
 The ones of the other sites can be found in the appendix to fortify the belief in the analysis drawn for a single site.
 
-\paragraph{MAE}
+\paragraph{MAE}\indent
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=\columnwidth]{figures/first_study/mae_mbe_site2.png}
@@ -54,7 +73,7 @@ The ones of the other sites can be found in the appendix to fortify the belief i
 \end{figure}
 
 
-\paragraph{RMSE}
+\paragraph{RMSE}\indent
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=\columnwidth]{figures/first_study/rmse_mbe_site2.png}
