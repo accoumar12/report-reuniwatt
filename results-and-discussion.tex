@@ -64,16 +64,32 @@ The ones of the other sites can be found in the appendix to fortify the belief i
     \centering
     \includegraphics[width=\columnwidth]{figures/first_study/mae_mbe_site2.png}
 \caption{MAE and MBE levels across all elevation angle intervals of a day, for site 2.}
+\label{fig:mae_mbe_site2}
 \end{figure}
 
+    \autoref{fig_mae_mbe_site2} supports our previous conclusions, but most importantly shows the decrease of the MBE across all the elevation angle intervals of a day.
+Indeed, it is a know fact that NWP models present a positive bias that is higher around noon, and the MBE of all the machine learning models tends to be much closer to 0.
+
+On site 2, the bias is negative but this bias can be either positive or negative depending on the study site, as confirmed with the other graphs in \autoref{appendix:single}.
+Only site 4 shows a different behavior for the bias across the day, but this does not change the MAE results. 
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=\columnwidth]{figures/first_study/residual_errors_svr_site2_mae.png}
 \caption{Residual error levels across all elevation angle intervals of a day, for a SVR model, for site 2.}
 \end{figure}
 
+The probability density functions across the day support these conclusions, where we can clearly see that the curve is shifted towards 0, as are the scatter plots in \autoref{appendix:single}.
+The whole dataset cloud is shifted towards the line y=x, which is the line where the corrected forecast exactly match the measured irradiance.\\
 
+These plots about the MAE minimisation thanks to the SVR model show that this model is not only able to reduce the MAE across the day, but also to reduce the MBE across the day.
+
+The global lowering of the global metrics is indeed reflected in the lowering of the metrics at each elevation angle interval of particular day. The bias is also improved in 3 sites out of 4.
 \paragraph{RMSE}\indent
+
+Similar conclusions can be drawn about the RMSE minimisation, with the MLP model.
+
+The only difference is that the improvement of the MBE now stands for all the study cases.
+
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=\columnwidth]{figures/first_study/rmse_mbe_site2.png}
@@ -86,14 +102,20 @@ The ones of the other sites can be found in the appendix to fortify the belief i
 \caption{Residual error levels across all elevation angle intervals of a day, for a MLP model, for site 2.}
 \end{figure}
 
+All in all, the improvement of the metrics of interest (MAE and RMSE) is reflected in an improvement of the bias. 
+
+This behavior stands for each period of a day, which was not perfectly obvious after I performed the global post-processing.\\
+
+Once the relevant models have been found, one has to perform a sensitivity study of these ones in order to better grasp how they work.
+
 \subsubsection{Sensitivity study}
-It is also necessary to perform a sensitivity study of the parameters that are not tuned in our process. It is why the influence of the choices of predictors, of learning periods, of learning window type (fixed or sliding).
-and of forecasting model are successively performed. 
+It is also necessary to perform a sensitivity study of the parameters that are not tuned in our process. It is why the influence of the choices of predictors, of learning periods, of learning window type (fixed or sliding) and of forecasting model are successively performed. 
 
 With the aim of clarity, the results will be here presented with the MAE optimisation, but the results of the RMSE optimisation lead the same conclusions, and can also
-be found in the appendix.
+be found in \autoref{appendix:single}.
 
 \paragraph{Influence of the choice of the predictors}
+The first sensitivity study is performed with the set of predictors that was presented in \autoref{tab:set_pred}.
 \begin{table}[htb!]
 \begin{center}
 \begin{tabular}{|l|llll|}
@@ -116,28 +138,51 @@ $ghi_{cs}$             &  X &    &  X &    \\
     \centering
     \includegraphics[width=\columnwidth]{figures/first_study/comp_predictors_mae.png}
 \caption{Pairwise systematicity matrix for MAE. The value $V_{i,j}$ of the cell $(i,j)$ indicates how often the configuration of line i is the best one, across the 4 sites, for the model of column j. For example, the configuration 0 is the best one with a GBM post-processing for 3 sites, and the configuration 2 is the best one for 1 site.}
+\label{fig:matrix_pred}
 \end{figure}
 
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=\columnwidth]{figures/first_study/comp_predictors_mae_svr.png}
 \caption{Comparison of the MAE skill scores of the different configurations.}
+    \label{fig:ss_pred}
 \end{figure}
 
+Interestingly, the configuration with all the predictors is not the configuration that seem to give the best results if we consider \autoref{fig:matrix_pred}.
+
+If we consider now \ref{fig:ss_pred}, the performances of the configurations 0, 1 and 2 are nearly identical. They both provide great improvements to the post-processing using only the forecasted irradiance.
+
+In the following, I chose to always rely on the full configuration of the set of predictors. This is because I was working with only 5 predicting values and a feature selection is generally not advised when working with so few predictors.
+This is a strong choice that could be questioned if the situation made to work with much more predictors (more than 10), where a feature selection would be necessary, both for metrics and computational performances reasons.
 \paragraph{Influence of the learning period}
+
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=\columnwidth]{figures/first_study/comp_learning_period_mae.png}
 \caption{Pairwise systematicity matrix for MAE. The value $V_{i,j}$ of the cell $(i,j)$ indicates how often the learning period duration (in months) of line i performs the best, across the 4 sites, for the model of column j. For example, having a 12-months-long learning period is the best thing in 3 sites out of 4 with a SVR model, the last site performs better with a 6-month-long learning period.}
+\label{fig:matrix_period}
 \end{figure}
 
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=\columnwidth]{figures/first_study/comp_learning_period_mae_svr.png}
+    \label{fig:ss_period}
 \caption{Comparison of the MAE skill scores of the different learning period durations (in months).}
 \end{figure}
 
+Both \autoref{fig:matrix_period} and \autoref{fig:ss_period} go to show that a larger learning period is beneficial for the model, up to one year when 
+the benefits from increasing the learning period do not prove to be significant.
+
+It is interesting to notice that a one-month learning period provides a negative post-processing.
 \paragraph{Influence of the window of learning}
+ 
+Another question from Reuniwatt was the pertinence of a sliding learning window.
+
+I thus performed two types of learning:
+\begin{itemize}
+    \item A fixed-window learning where the testing period was the full year of 2021 and and the learning period was the full year of 2020.
+    \item A sliding-window learning where each month of the test 2021 year used a model trained during the moving year that preceded this month. For instance, March 2021 used a model trained from February 2020 to February 2021.
+\end{itemize}
 
 \begin{figure}[htb!]
     \centering
@@ -151,13 +196,35 @@ $ghi_{cs}$             &  X &    &  X &    \\
 \caption{Comparison of the MAE skill scores for a SVR model.}
 \end{figure}
 
+Interestingly, the fixed window performs best that the sliding window for all the study cases. 
+
 \paragraph{Influence of the NWP forecasting model}
+All the previous optimisations were done on the GFS forecast, as it was explained in \autoref{sec:methodo}.
+
+Reuniwatt uses the data from several different numerical weather prediction (NWP) models, including ECMWF, AROME and ARPEGE.
+It is interesting to see how our models perform on this different data source.
+\begin{figure}[htb!]
+    \centering
+    \includesvg[width=\columnwidth]{figures/first_study/comp_for_models_ss_mae.svg}
+    \caption{Comparison of the MAE skill scores of the SVR model of four different NWP forecast models.}
+    \label{fig:models_ss}   
+\end{figure}
 
 \begin{figure}[htb!]
     \centering
     \includesvg[width=\columnwidth]{figures/first_study/comp_for_models_mae.svg}
 \caption{Comparison of the post-processing of four different NWP forecast models on MAE.}
+\label{fig:models_plot}
 \end{figure}
+
+\autoref{fig:models_ss} clearly shows that the NWP models differently benefit from the post-processing.
+There seems to be higher skill scores for less elaborate models such as AROME in comparison to more advanced models such as ECMWF. The higher is the raw forecast metrics, the better is the post-processing.
+
+This is confirmed by \autoref{fig_models_plot} where it can be clearly seen that post-processed metrics fall in a much thiner range than the initial one. It is worthwhile to point out that the ECMWF forecast still remains the best forecast after post-processing.\\
+
+Now that each forecast model has been post-processed, it would be interesting to hybride them so as to compare the performances against the current LT CONT model used by Reuniwatt.
+
+Before doing it, we need to find another linear model to compare against the machine-learning models, since the Kalman filter did not prove its effectiveness.
 \subsection{Benchmarking the linear regression models}
 
 \paragraph{MAE}
