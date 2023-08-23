@@ -1,4 +1,14 @@
 \section{Conclusions and perspectives}
 \subsection{Results summary}
+\begin{itemize}
+    \item The Kalman filter has not been proven interesting enough for post-processing day-ahead irradiance forecasts, in opposition to what was said in \cite{suksamosorn_post-processing_2021} paper. The difference may be due to the fact that we used a more precise GFS data in comparison to the WRF data used in the paper. What is more, I dealed with the extreme case of day-ahead data with origin 00:00 UTC, while the paper fixed the origin at 13:00 (local hour).
+
+    A more appropriate use of the Kalman filter would be for filtering faulty data, as explored in \cite{sec:filtering}.
+    \item For a MAE minimisation, the SVR model clearly yielded the best results, both for post-processing a single NWP model and for hybridation. This confirms \cite{verbois_statistical_2022}.
+    \item For a RMSE minimisation, there is no clear consensus for post-processing a single NWP model, as it was the case in the literature where the random forest (\cite{suksamosorn_post-processing_2021}), GBM and MLP models (\cite{verbois_statistical_2022}) were deemed promising. Still the MLP model as well as the linear least square regression model stand out.
+
+    The hybridation showed some limits of the MLP model, in favor of the linear model.
+    \item Using the LT CONT model on post-processed data only yielded marginal enhancements in metrics, whereas using the adequate model (SVR for MAE, Linear regression for RMSE) on the whole dataset provided significant improvements as compared to the LT CONT model.
+\end{itemize}
 \subsection{Suggestions for future improvements}
 \subsection{My learnings from the internship}
