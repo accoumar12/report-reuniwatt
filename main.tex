@@ -18,7 +18,8 @@
 \usepackage{caption}
 %\usepackage{subcaption} %cannot be used together with subfig!
 \usepackage{color}
-\usepackage{hyperref}
+\usepackage{hyperref} %for autoref mainly
+% \usepackage{cleveref} %even better, for appendix mainly
 \usepackage[toc,page]{appendix} %for adding the appendix to the toc in order to reference it with a label
 
 \usepackage{eurosym}
@@ -33,6 +34,7 @@
 \usepackage[inkscapelatex=false]{svg}
 \usepackage{indentfirst}
 \usepackage{caption}
+\newcommand{\source}[1]{\caption*{\hfill Source: {#1}} } %for sourcing
 \usepackage{subcaption}
 \usepackage{booktabs}
 \newcommand\MyBox[2]{
@@ -78,7 +80,7 @@ Soci\'{e}t\'{e} par Actions Simplifi\'{e}e au capital de 191.700\euro\ RCS Saint
 %titre
 \title{Internship report}
 
-\input{latex_hyphenation} %custom hyphenation list
+\include{latex_hyphenation} %custom hyphenation list
 % \setlength\parindent{0pt} %FK edit: no indent at beginning of paragraph
  
 \begin{document}
@@ -92,22 +94,22 @@ Soci\'{e}t\'{e} par Actions Simplifi\'{e}e au capital de 191.700\euro\ RCS Saint
 \tableofcontents
 \newpage
 
-\input{abstract.tex}
+\include{abstract.tex}
 \newpage
 
-\input{introduction.tex}
+\include{introduction.tex}
 \newpage
 
-\input{methodology.tex}
+\include{methodology.tex}
 \newpage
 
-\input{results-and-discussion.tex}
+\include{results-and-discussion.tex}
 \newpage
-\input{conclusion_and_perspectives.tex}
+\include{conclusion_and_perspectives.tex}
 
 \bibliographystyle{abbrvnat}
 % \bibliographystyle{plain}
 \bibliography{biblio.bib}
 
-\input{appendix.tex}
+\include{appendix.tex}
 \end{document}

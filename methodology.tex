@@ -28,10 +28,10 @@ the total solar radiation incident on a horizontal surface.
     \label{tab:set_pred}
 \end{table}
 
-\cite{verbois_statistical_2022} advises researchers to analyze their models performances over several years but I was at this point limited by the Reuniwatt API, thus
+\cite{verbois_statistical_2022} advises researchers to analyze their models performances over several years, but I was at this point limited by the Reuniwatt API, thus
 I initially opted for learning during 2020 and testing during 2021.
 
-The four initial study sites are the following (\ref{fig:initial_sites}):
+The four initial study sites are the following (\autoref{fig:initial_sites}):
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=0.7\textwidth]{figures/initial_study_sites.png}
@@ -42,9 +42,10 @@ The four initial study sites are the following (\ref{fig:initial_sites}):
 Even if papers like \cite{mayer_calibration_2023} state that the correlation coefficient is the recommended metrics to use when no clear directive is given, the metrics 
 that I am going to investigate are the one already prefered by Reuniwatt, the mean absolute error (MAE) and the root mean square error (RMSE). 
 
-I also wanted to investigate the MBE optimization, but the results were not convincing and MBE is more seen in our study as a metrics to be verified after post-processing.
+I also wanted to investigate the mean bieas error (MBE) optimization, but the results were not convincing and MBE is more seen in our study as a metrics to be verified after post-processing.
 We indeed aim at the lowest absolute MBE.
 
+Skill scores relative to these metrics will be studied.
 \begin{itemize}
     \item The mean absolute error \begin{align*}
         MAE = \frac{1}{N} \sum_{i=1}^{N} | I_{forecast, i} - I_{measure, i} |
@@ -92,16 +93,16 @@ into the first guess, obtaining improved a posteriori predictions.
 
 My understanding of the general Kalman filter was greatly thanks to \cite{kfbasis}, and I practised the filter thanks to \cite{kfpractise}.
 
-In the context of irradiance forecasting, I followed the path from \cite{suksamosorn_post-processing_2021}.
+In the context of irradiance forecasting, I followed the path followed by \cite{suksamosorn_post-processing_2021}.
     \item Gradient boosting machine model (GBM).
+
 GBM creates an ensemble of weak learners, meaning that it combines several smaller, simpler models in order to obtain a more accurate prediction than what an individual model would produce. Gradient boosting works by iteratively training the weak learners on gradient-based functions and incorporating them into the model as “boosted” participants. 
 
-For more information, see notably \cite{GBMbasis} for the theory and \cite{GBMpractise} for the python practise.
+For more information, see notably \cite{GBMbasis} for the theory and \cite{GBMpractise} for the Python practise.
     \item Support vector regression model (SVR).
 
-    The support vector regression method is often used in cases where there are multiple input variables, each of which may have an effect on the output variable. The goal is to find the best linear combination of these input variables to predict the output variable.
+Support Vector Regression (SVR) is a machine learning technique used for regression analysis. It is a type of supervised learning algorithm that is based on Support Vector Machines (SVMs), which were originally developed for classification tasks. SVR extends the concepts of SVM to the realm of regression, where the goal is to predict a continuous numerical output rather than discrete classes.
 
-To estimate the coefficients of the linear function, standard vector regression uses a method called least squares regression. This involves finding the values of the coefficients that minimize the sum of the squared differences between the predicted and actual values.
     Here is an interesting article on the subject: \cite{SVR}.
     \item Random forest model (RF).
 
@@ -115,7 +116,6 @@ The Multilayer Perceptron (MLP) is a type of artificial neural network used in m
 \end{itemize}
 All this models will be compared during the internhip, and all the data wrangling architecture around it can be found either in the README or more specifically in the source code of my repo \cite{myrepo}.
 
-After having post-processed a single NWP forecast model individually, the next step will be to assess the performances of our hybrid model in comparison to the one currently used by Reuniwatt (LT CONT).
 \subsection{Model performances evaluation strategy}
 The benchmarking consists in evaluating the performances on each metrics of each one of the model optimized with the corresponding metrics.
 

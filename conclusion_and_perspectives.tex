@@ -10,5 +10,27 @@
     The hybridation showed some limits of the MLP model, in favor of the linear model.
     \item Using the LT CONT model on post-processed data only yielded marginal enhancements in metrics, whereas using the adequate model (SVR for MAE, Linear regression for RMSE) on the whole dataset provided significant improvements as compared to the LT CONT model.
 \end{itemize}
-\subsection{Suggestions for future improvements}
+
+\subsection{Perspectives}
+\begin{itemize}
+    \item The specific study case was the one of the day-ahead irradiance forecasts, but such models can be applied to any other timestamped variable.
+    \item Many improvements and fine-tuning can be performed on the actual model. All of them are listed in the README of my project \cite{myrepo}.
+    \item There are also more advanced promising models that could be investigated, also listed in the README. Among them, one can mention the N-BEATS models and the Meta-Transformer model depicted in \autoref{fig:innovative_models}.
+\end{itemize}
+
+\begin{figure}[htb!]
+    \begin{subfigure}[h]{0.4\linewidth}
+        \includegraphics[width=\columnwidth]{figures/n-beats.png}
+        \caption{N-BEATS architecture.}
+        \source{\cite{oreshkin2020nbeats}}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[h]{0.4\linewidth}
+        \includegraphics[width=\columnwidth]{figures/meta-transformer.png}
+        \caption{Meta-Transformer.}
+        \source{\cite{zhang2023metatransformer}}
+    \end{subfigure}
+    \caption{Two innovative models for post-processing timestamped variables.}
+    \label{fig:innovative_models}
+\end{figure}
 \subsection{My learnings from the internship}
