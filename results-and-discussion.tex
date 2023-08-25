@@ -244,8 +244,8 @@ We are now going to discuss which linear regression model suits best for each on
 
 We investigate the linear models that are implemented inside the skikit-learn library, and that are listed on their website \cite{sklearnlinear}.
 
-Alike to what we did for our machine learning models, a grid search is performed to find for each model evaluated which set of hyperparameters is the best.
-\paragraph{MAE}
+Alike to what we did for our machine learning models, a grid search is performed to find out for each model evaluated which set of hyperparameters is the best.
+\paragraph{MAE}\indent
 
 \begin{figure}[htb!]
     \centering
@@ -267,7 +267,8 @@ The grid search allowed us to select the best set of hyperparameters of this alg
 The loss function is the "epsilon insensitive" function and the other hyperparameters are the default ones given by scikit-learn.
 
 \autoref{fig:ss_linear_mae} confirms the differences between this model and classical models such as the "LinearRegression" that implements the ordinary least squares method to find the optimal regression parameters. This more classical method will perform best for a RMSE minimisation as we are going to see.
-\paragraph{RMSE}
+\newpage
+\paragraph{RMSE}\indent
 \begin{figure}[htb!]
     \centering
     \includesvg[width=\columnwidth]{figures/linear_study/rmse_matrix.svg}
@@ -275,7 +276,7 @@ The loss function is the "epsilon insensitive" function and the other hyperparam
 4 sites. For example, the RMSE of the Lars model post-processed data is 1 times lower than the RMSE of the Lasso model, and for 1 site (4 - 1 = 3), it is higher.}
 \label{fig:mat_linear_rmse}
 \end{figure}
-
+\newpage
 \begin{figure}[htb!]
     \centering
     \includesvg[width=\columnwidth]{figures/linear_study/rmse_ss.svg}
@@ -283,9 +284,10 @@ The loss function is the "epsilon insensitive" function and the other hyperparam
 \label{fig:ss_linear_rmse}
 \end{figure}
 
-While \autoref{fig:mat_linear_rmse} seems to indicate that some models such as "TweedieRegressor" may perform really better than 'LinearRegression', a closer look thanks to \autoref{fig:ss_linear_rmse} shows that models from 'LinearRegression' up to 'TweedieRegressor' has really comparable performances, indeed almost identical. It's why it is the 'LinearRegression' model that is kept for a RMSE minimisation because of its unbeatable computation time.
+While \autoref{fig:mat_linear_rmse} seems to indicate that some models such as "TweedieRegressor" may perform really better than "LinearRegression", a closer look thanks to \autoref{fig:ss_linear_rmse} shows that models from "LinearRegression" up to "TweedieRegressor" have really comparable performances, indeed almost identical. It's why it is the "LinearRegression" model that is kept for a RMSE minimisation because of its unbeatable computation time.\\
 
 Now that the appropriate linear model to use has been fixed, we can compare the results of our models with respect to the one currently used by Reuniwatt.  
+\newpage
 \subsection{Showcase of the hybrid model}
 The efficiency of both the SVR model and the MLP model has been proven for post-processing a single NWP forecast model, respectively for MAE and RMSE.
 
@@ -296,12 +298,13 @@ The following models are going to be assessed in this part:
 \begin{itemize}
     \item The linear model (different according to the considered metrics). It is learnt with the initial set of predictors described in \autoref{tab:set_pred}.
     \item The best machine learning model (ie SVR for MAE and MLP for RMSE) learnt with the initial set of predictors. The NWP forecast model used for the irradiance used in the predictors set in the best one, in practise this means the ECMWF model.
-    \item The best machine learning model learnt with the concatenation of the initial set of preditors and all the other NWP models irradiance forecast available. This constitutes the big model where all the data is fed into the model.
+    \item The best machine learning model learnt with the concatenation of the initial set of preditors and all the other NWP models irradiance forecast available. This constitutes the big model where all the data is fed into it.
     \item The LT CONT model, learnt with the raw NWP models data.
     \item The LT CONT POST model, learnt with the improved NWP models data.
 \end{itemize}
 
-As depicted in \autoref{fig:widen_window}, it was necessary to switch from the 2020-2021 period to the 2020-2021-2022 period, because of the need of LT CONT POST of post-processed NWP data.
+As depicted in \autoref{fig:widen_window}, it was necessary to switch from the 2020-2021 period to the 2020-2021-2022 period, because of the need of LT CONT POST for post-processed NWP data.
+\newpage
 \begin{figure}[htb!]
     \centering
     \includesvg[width=\columnwidth]{figures/final_study/widen_time_window.svg}
@@ -311,37 +314,41 @@ As depicted in \autoref{fig:widen_window}, it was necessary to switch from the 2
 
 Following the flow of the data that was available on my machine, I first performed the analysis on the 4 inital sites, and then performed a validation study in 25 additional sites, located in Germany.
 
+\newpage
 \subsubsection{Study on the four inital sites}
 \label{sec:initial_study}
 \paragraph{MAE}
+\indent
 \begin{figure}[htb!]
     \centering
-    \includesvg[width=\columnwidth]{figures/final_study/ss_best_mae.svg}
+    \includesvg[width=0.7\columnwidth]{figures/final_study/ss_best_mae.svg}
 \caption{MAE skill score plots of the relevant models, the reference being here the best NWP forecast (in practise, this means ECMWF).}
 \label{fig:ss_best_mae}
 \end{figure}
 
 \begin{figure}[htb!]
     \centering
-    \includesvg[width=\columnwidth]{figures/final_study/evolution_plot_mae.svg}
+    \includesvg[width=0.7\columnwidth]{figures/final_study/evolution_plot_mae.svg}
 \caption{MAE evolution of the relevant models.}
 \label{fig:evol_best_mae}
 \end{figure}
+\newpage
 \autoref{fig:ss_best_mae} shows that the MAE skill score is improved by a few percent both by the LT CONT POST and the ALL SVR model, which is the big model that takes as predictors all the NWP models. THE LT CONT POST and the ALL SVR model share nearly the same performances.
 
 \autoref{fig:evol_best_mae} confirms that the LT CONT POST is able to improve the already improved ECMWF forecast, which was not obvious as a starting point.
 
 \paragraph{RMSE}
+\indent
 \begin{figure}[htb!]
     \centering
-    \includesvg[width=\columnwidth]{figures/final_study/ss_best_rmse.svg}
+    \includesvg[width=0.7\columnwidth]{figures/final_study/ss_best_rmse.svg}
 \caption{RMSE skill score plots of the relevant models, the reference being here the best NWP forecast (in practise, this means ECMWF).}
 \label{fig:ss_best_rmse}
 \end{figure}
-
+\newpage
 \begin{figure}[htb!]
     \centering
-    \includesvg[width=\columnwidth]{figures/final_study/evolution_plot_rmse.svg}
+    \includesvg[width=0.7\columnwidth]{figures/final_study/evolution_plot_rmse.svg}
 \caption{RMSE evolution of the relevant models.}
 \label{fig:evol_best_rmse}
 \end{figure}
@@ -351,21 +358,23 @@ However, site 4 is really promising since the skill score our models nearly doub
 
 All in all, our 4 initial study cases demonstrated the potential benefits of our models, being the LT CONT POST and the big machine learning model, with respect to the LT CONT model.
 More validation sites are needed to be totally convinced of the prevalence of any of our model over the LT CONT model.
-What is more, it's still difficult to say which one of our 2 models is the best.
 
+What is more, it's still difficult to say which one of our 2 models is the best.
+\newpage
 \subsubsection{Study on the German sites}
 
 The following study cases are now investigated, all located in Germany.
 \begin{figure}[htb!]
     \centering
-    \includesvg[width=\columnwidth]{figures/german_sites.svg}
+    \includesvg[width=0.7\columnwidth]{figures/german_sites.svg}
 \caption{The 25 German sites used for validation.}
 
 \end{figure}
-\paragraph{MAE}
+\newpage
+\paragraph{MAE}\indent
 \begin{figure}[htb!]
     \centering
-    \includesvg[width=\columnwidth]{figures/final_study/ss_heatmap_mae.svg}
+    \includesvg[width=0.7\columnwidth]{figures/final_study/ss_heatmap_mae.svg}
 \caption{MAE skill score heatmap of the validation sites (reference: LT CONT), skill scores are in percent.}
 \label{fig:ss_heatmap_mae}
 \end{figure}
@@ -374,27 +383,28 @@ One has to be well aware that the reference model is now the LT CONT model. This
 
 \autoref{fig:ss_heatmap_mae} clearly shows that any of the 25 validation sites benefits from both models, since all the skill scores are positive.
 
-It is really interesting to note that LT CONT POST performs much worse than the big SVR model for these sites, clarifying our questions from \autoref{sec:initial_study}.
+It is really interesting to note that LT CONT POST performs much worse than the big SVR model for these sites, clarifying our questions from \ref{sec:initial_study}.
+\newpage
 
-\paragraph{RMSE}
+\paragraph{RMSE}\indent
 \begin{figure}[htb!]
     \centering
-    \includesvg[width=\columnwidth]{figures/final_study/ss_heatmap_rmse.svg}
+    \includesvg[width=0.7\columnwidth]{figures/final_study/ss_heatmap_rmse.svg}
 \caption{RMSE skill score heatmap of the validation sites (reference: LT CONT), skill scores are in percent.}
 \end{figure}
 
 Concerning the RMSE study, the MLP model performed worse than LT CONT for nearly all of the 25 models, but the big linear model actually provides minor improvements over all the 25 sites.
 
-It is highly interesting to see that, despite showcasing similar performances in \autoref{sec:initial_study}, the MLP and linear models perform differently when it comes to the big study.
+It is highly interesting to see that, despite showcasing similar performances in \ref{sec:initial_study}, the MLP and linear models perform differently when it comes to the big study.
 
 This may be due to a too simple hyperparameters search space for the MLP that can't perform well enough when scaling the model.\\
 
-It is now mandatory to check the good performances of the big linear model for our 4 inital study case, because the linear model studied in \autoref{sec:initial_study} did not make advantage of all the NWP models for learning.
+It is now mandatory to check the good performances of the big linear model for our 4 inital study case, because the linear model studied in \ref{sec:initial_study} did not make advantage of all the NWP models for learning.
 \autoref{fig:ss_heatmap_linear} indeed shows the benefits of the big linear model also for the 4 initial study sites.
 
 \begin{figure}[htb!]
     \centering
-    \includesvg[width=\columnwidth]{figures/final_study/ss_heatmap_rmse_linear_4_sites.svg}
+    \includesvg[width=0.7\columnwidth]{figures/final_study/ss_heatmap_rmse_linear_4_sites.svg}
 \caption{Global linear model verification on the 4 initial sites (reference: LT CONT), skill scores are in percent.}
 \label{fig:ss_heatmap_linear}
 \end{figure}

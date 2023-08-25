@@ -4,46 +4,52 @@
 \label{appendix:single}
 
 \paragraph{MAE}
+\indent
 \begin{figure}[htb!]
     \centering
     \begin{subfigure}{\columnwidth}
-        \includegraphics[width=\columnwidth]{figures/first_study/mae_mbe_site1.png}
+        \centering
+        \includegraphics[width=0.6\columnwidth]{figures/first_study/mae_mbe_site1.png}
         \subcaption{Site 1}
     \end{subfigure}
 \medskip
     \begin{subfigure}{\columnwidth}
-        \includegraphics[width=\columnwidth]{figures/first_study/mae_mbe_site3.png}
+        \centering
+        \includegraphics[width=0.6\columnwidth]{figures/first_study/mae_mbe_site3.png}
         \subcaption{Site 3}
     \end{subfigure}
 \medskip
     \begin{subfigure}{\columnwidth}
-        \includegraphics[width=\columnwidth]{figures/first_study/mae_mbe_site4.png}
+        \centering
+        \includegraphics[width=0.6\columnwidth]{figures/first_study/mae_mbe_site4.png}
         \subcaption{Site 4}
     \end{subfigure}
     \caption[]{MAE and MBE levels across all elevation angle intervals of a day.}
 \end{figure}
 
+\newpage
+
 \begin{figure}[htb!]
-    \centering
-    \begin{subfigure}{\columnwidth}
-        \includegraphics[width=\columnwidth]{figures/first_study/residual_errors_svr_site1_mae.png}
+    \begin{subfigure}{0.49\columnwidth}
+        \includegraphics[width=\columnwidth, height=0.9\textheight]{figures/first_study/residual_errors_svr_site1_mae.png}
         \subcaption{Site 1}
     \end{subfigure}
-\medskip
-    \begin{subfigure}{\columnwidth}
-        \includegraphics[width=\columnwidth]{figures/first_study/residual_errors_svr_site3_mae.png}
+    \begin{subfigure}{0.49\columnwidth}
+        \includegraphics[width=\columnwidth, height=0.9\textheight]{figures/first_study/residual_errors_svr_site3_mae.png}
         \subcaption{Site 3}
     \end{subfigure}
-\medskip
+\end{figure}
+\begin{figure}\ContinuedFloat
     \begin{subfigure}{\columnwidth}
-        \includegraphics[width=\columnwidth]{figures/first_study/residual_errors_svr_site4_mae.png}
+        \centering
+        \includegraphics[width=0.49\columnwidth]{figures/first_study/residual_errors_svr_site4_mae.png}
         \subcaption{Site 4}
     \end{subfigure}
     \caption[]{Residual error levels across all elevation angle intervals of a day, for a SVR model.}
 \end{figure}
 
 
-\begin{figure}[htb!]
+\begin{figure}[]
     \centering
     \begin{subfigure}{\columnwidth}
         \includegraphics[width=\columnwidth]{figures/first_study/scatter_plot_svr_site1_mae.png}
@@ -54,8 +60,8 @@
         \includegraphics[width=\columnwidth]{figures/first_study/scatter_plot_svr_site2_mae.png}
         \subcaption{Site 2}
     \end{subfigure}
-\medskip
-
+\end{figure}
+\begin{figure}\ContinuedFloat
     \begin{subfigure}{\columnwidth}
         \includegraphics[width=\columnwidth]{figures/first_study/scatter_plot_svr_site3_mae.png}
         \subcaption{Site 3}
@@ -67,60 +73,66 @@
     \end{subfigure}
     \caption[]{Scatter plots for a SVR model against the reference model.}
 \end{figure}
+
 \paragraph{RMSE}
+\indent
 \begin{figure}[htb!]
     \centering
     \begin{subfigure}{\columnwidth}
-        \includegraphics[width=\columnwidth]{figures/first_study/rmse_mbe_site1.png}
+        \centering
+        \includegraphics[width=0.6\columnwidth]{figures/first_study/rmse_mbe_site1.png}
         \subcaption{Site 1}
     \end{subfigure}
 \medskip
     \begin{subfigure}{\columnwidth}
-        \includegraphics[width=\columnwidth]{figures/first_study/rmse_mbe_site3.png}
+        \centering
+        \includegraphics[width=0.6\columnwidth]{figures/first_study/rmse_mbe_site3.png}
         \subcaption{Site 3}
     \end{subfigure}
 \medskip
     \begin{subfigure}{\columnwidth}
-        \includegraphics[width=\columnwidth]{figures/first_study/rmse_mbe_site4.png}
+        \centering
+        \includegraphics[width=0.6\columnwidth]{figures/first_study/rmse_mbe_site4.png}
         \subcaption{Site 4}
     \end{subfigure}
     \caption[]{RMSE and MBE levels across all elevation angle intervals of a day.}
 \end{figure}
 
+\newpage
 
 \begin{figure}[htb!]
-    \centering
-    \begin{subfigure}{\columnwidth}
-        \includegraphics[width=\columnwidth]{figures/first_study/residual_errors_mlp_site1_rmse.png}
+    \begin{subfigure}{0.49\columnwidth}
+        \includegraphics[width=\columnwidth, height=0.9\textheight]{figures/first_study/residual_errors_mlp_site1_rmse.png}
         \subcaption{Site 1}
     \end{subfigure}
-\medskip
-    \begin{subfigure}{\columnwidth}
-        \includegraphics[width=\columnwidth]{figures/first_study/residual_errors_mlp_site3_rmse.png}
+    \begin{subfigure}{0.49\columnwidth}
+        \includegraphics[width=\columnwidth, height=0.9\textheight]{figures/first_study/residual_errors_mlp_site3_rmse.png}
         \subcaption{Site 3}
     \end{subfigure}
-\medskip
+\end{figure}
+\begin{figure}\ContinuedFloat
     \begin{subfigure}{\columnwidth}
-        \includegraphics[width=\columnwidth]{figures/first_study/residual_errors_mlp_site4_rmse.png}
+        \centering
+        \includegraphics[width=0.49\columnwidth]{figures/first_study/residual_errors_mlp_site4_rmse.png}
         \subcaption{Site 4}
     \end{subfigure}
     \caption[]{Residual error levels across all elevation angle intervals of a day, for a MLP model.}
 \end{figure}
 
 
-\begin{figure}[htb!]
+\begin{figure}[]
     \centering
-    \begin{subfigure}{\columnwidth}
+    \begin{subfigure}{1\columnwidth}
         \includegraphics[width=\columnwidth]{figures/first_study/scatter_plot_mlp_site1_rmse.png}
         \subcaption{Site 1}
     \end{subfigure}
 \medskip
-    \begin{subfigure}{\columnwidth}
+    \begin{subfigure}{1\columnwidth}
         \includegraphics[width=\columnwidth]{figures/first_study/scatter_plot_mlp_site2_rmse.png}
         \subcaption{Site 2}
     \end{subfigure}
-\medskip
-
+\end{figure}
+\begin{figure}\ContinuedFloat
     \begin{subfigure}{\columnwidth}
         \includegraphics[width=\columnwidth]{figures/first_study/scatter_plot_mlp_site3_rmse.png}
         \subcaption{Site 3}
@@ -133,10 +145,9 @@
     \caption[]{Scatter plots for a MLP model against the reference model.}
 \end{figure}
 
-
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=\columnwidth]{figures/first_study/comp_predictors_rmse.png}
+    \includegraphics[width=0.6\columnwidth]{figures/first_study/comp_predictors_rmse.png}
 \caption{Pairwise systematicity matrix for RMSE. The value $V_{i,j}$ of
  the cell $(i,j)$ indicates how often the configuration of line i is the best one, across 
  the 4 sites, for the model of column j. For example, the configuration 0 is the best one
@@ -145,32 +156,32 @@
 
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=\columnwidth]{figures/first_study/comp_predictors_rmse_mlp.png}
+    \includegraphics[width=0.72\columnwidth]{figures/first_study/comp_predictors_rmse_mlp.png}
 \caption{Comparison of the RMSE skill scores of the different configurations.}
 \end{figure}
 
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=\columnwidth]{figures/first_study/comp_learning_period_rmse.png}
+    \includegraphics[width=0.6\columnwidth]{figures/first_study/comp_learning_period_rmse.png}
 \caption{Pairwise systematicity matrix for RMSE. The value $V_{i,j}$ of the cell $(i,j)$ indicates how often the learning period duration (in months) of line i performs the best, across the 4 sites, for the model of column j. For example, having a 12-months-long learning period is the best thing in 3 sites out of 4 with a SVR model, the last site performs better with a 6-month-long learning period.}
 \end{figure}
 
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=\columnwidth]{figures/first_study/comp_learning_period_rmse_mlp.png}
+    \includegraphics[width=0.6\columnwidth]{figures/first_study/comp_learning_period_rmse_mlp.png}
 \caption{Comparison of the RMSE skill scores of the different learning period durations (in months).}
 \end{figure}
 
 
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=\columnwidth]{figures/first_study/comp_window_rmse.png}
+    \includegraphics[width=0.6\columnwidth]{figures/first_study/comp_window_rmse.png}
 \caption{Pairwise systematicity matrix concerning window type for RMSE.}
 \end{figure}
 
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=\columnwidth]{figures/first_study/comp_window_rmse_mlp.png}
+    \includegraphics[width=0.85\columnwidth]{figures/first_study/comp_window_rmse_mlp.png}
 \caption{Comparison of the RMSE skill scores for a SVR model.}
 \end{figure}
 
@@ -180,6 +191,27 @@
 \caption{Comparison of the post-processing of four different NWP forecast models on RMSE.}
 \end{figure}
 
-\section{Filtering the measures}\label{sec:filtering}
+\clearpage
+
+\section{Filtering the measures}
+\label{sec:filtering}
 During this internship, I had to deal at some point with missing or faulty data.
-When dealing with such data, there are actually two major phases
+When dealing with such data, there are actually two major phases concerning data processing: faulty data detection and faulty data correction.
+
+\paragraph{Faulty data detection}
+\indent
+
+In an operational context, the measures can sometimes drop or rise just after one or two timesteps. Even though it is often easy to see afterwards that the data was wrong at this point, it is harder to implement a decision algorithm that detects it live. 
+
+A rather simple approach, based on Kalman filter but that I did not experiment, is detailled in \cite{kerhascoet_sensor_2017}.
+
+\paragraph{Data correction}
+\indent
+
+Once that the data has been detected as faulty, the time has come to handle this missing data. There are actually many configurations possible for this missing data handling (live or holes in a retrieved dataset), but here are a few references that I quickly investigated, without any proper study, during my internship:
+
+\begin{itemize}
+    \item Kalman filter based methods that were not effective.
+    \item Interesting approachs developped by scikit-learn for data imputation: \cite{sklearnmissingdata}, based on regressions.
+    \item Clustering methods to isolate outliers.
+\end{itemize}
