@@ -8,7 +8,7 @@ The following step will be to look at the results in the details to prove the tr
 We will each time first study the MAE optimisation and then the RMSE optimisation. Be aware that the models hyperparameters may vary between the two optimisations because the 
 target metrics to minimize is not the same during the computations.
 \subsection{Post-processing of a single forecasting NWP model}
-\subsubsection{Study of the models altogether} 
+\subsubsection{Study of the post-processing models altogether} \label{subsubsec:pp}
 \paragraph{MAE}\indent
 \begin{figure}[htb!]
     \centering
@@ -58,7 +58,7 @@ This is confirmed by \autoref{fig:ss_rmse} where the MLP model bar is the highes
 With the aim of clarity, only the plots of the single site 2 will be shown here.
 The overall similarity of the results across the 4 sites also motivate this choice.
 
-The ones of the other sites can be found in the appendix to fortify the belief in the analysis drawn for a single site.
+The ones of the other sites can be found in \autoref{appendix:single} to fortify the belief in the analysis drawn for a single site.
 
 \paragraph{MAE}\indent
 \begin{figure}[htb!]
@@ -69,23 +69,24 @@ The ones of the other sites can be found in the appendix to fortify the belief i
 \end{figure}
 
     \autoref{fig:mae_mbe_site2} supports our previous conclusions, but most importantly shows the decrease of the MBE across all the elevation angle intervals of a day.
-include, it is a know fact that NWP models present a positive bias that is higher around noon, and the MBE of all the machine learning models tends to be much closer to 0.
+Indeed, it is a know fact that NWP models present a positive bias that is higher around noon, and the MBE of all the machine learning models tends to be much closer to 0.
 
 On site 2, the bias is negative but this bias can be either positive or negative depending on the study site, as confirmed with the other graphs in \autoref{appendix:single}.
 
-Only site 4 shows a different behavior for the bias across the day, but this does not change the MAE results. 
+Only site 4 shows a different behavior for the bias across the day, even if the MAE is improved. 
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=0.47\columnwidth]{figures/first_study/residual_errors_svr_site2_mae.png}
 \caption{Residual error levels across all elevation angle intervals of a day, for a SVR model, for site 2.}
 \end{figure}
 
-The probability density functions across the day support these conclusions, where we can clearly see that the curve is shifted towards 0, as are the scatter plots in \autoref{appendix:single}.
-The whole dataset cloud is shifted towards the line y=x, which is the line where the corrected forecast exactly match the measured irradiance.\\
+The probability density functions across the day support these conclusions, where we can clearly see that the curves means are shifted toward 0, as are the scatter plots in \autoref{appendix:single}.
+The whole dataset cloud is shifted towards the line y=x, which is the line where the corrected forecast exactly match the measured irradiance.
+This shift does not depend of the sign of the initial bias, since even positive mean biases occuring at late hours for site 4 are effectively shifted to the left. \\
 
-These plots about the MAE minimisation thanks to the SVR model show that this model is not only able to reduce the MAE across the day, but also to reduce the MBE across the day.
+These plots of the MAE minimisation with the SVR model show that this model is not only able to reduce the MAE across the day, but also to reduce the MBE across the day.
 
-The global lowering of the global metrics is indeed reflected in the lowering of the metrics at each elevation angle interval of particular day. The bias is also improved in 3 sites out of 4.
+The global lowering of the metrics is indeed reflected in the lowering of the metrics at each elevation angle interval of particular day. The bias is also improved in 3 sites out of 4.
 \paragraph{RMSE}\indent
 
 Similar conclusions can be drawn about the RMSE minimisation, with the MLP model.
@@ -112,7 +113,7 @@ This behavior stands for each period of a day, which was not perfectly obvious a
 Once the relevant models have been found, one has to perform a sensitivity study of these ones in order to better grasp how they work.
 
 \subsubsection{Sensitivity study}
-It is also necessary to perform a sensitivity study of the parameters that are not tuned in our process. It is why the influence of the choices of predictors, of learning periods, of learning window type (fixed or sliding) and of forecasting model are successively performed. 
+A sensitivity study of the parameters that are not tuned in our process has to be performed. It is why the influence of the choices of predictors, of learning periods, of learning window type (fixed or sliding) and of forecasting model are successively studied. 
 
 With the aim of clarity, the results will be here presented with the MAE optimisation, but the results of the RMSE optimisation lead the same conclusions, and can also
 be found in \autoref{appendix:single}.
@@ -122,7 +123,7 @@ It's important to notice that for each sensitivity study, only the one parameter
 \paragraph{Influence of the choice of the predictors}
 \indent
 
-The first sensitivity study is performed with the set of predictors that was presented in \autoref{tab:set_pred}.
+The first sensitivity study is performed with the set of predictors that was presented in \autoref{tab:set_pred}, and the different configurations are described in \autoref{tab:pred_configs}.
 \begin{table}[htb!]
 \begin{center}
 \begin{tabular}{|l|llll|}
@@ -159,10 +160,10 @@ $ghi_{cs}$             &  X &    &  X &    \\
 \newpage
 Interestingly, the configuration with all the predictors is not the configuration that seem to give the best results if we consider \autoref{fig:matrix_pred}.
 
-If we consider now \ref{fig:ss_pred}, the performances of the configurations 0, 1 and 2 are nearly identical. They both provide great improvements to the post-processing using only the forecasted irradiance.
+If we consider now \autoref{fig:ss_pred}, the performances of the configurations 0, 1 and 2 are nearly identical. They both provide great improvements to the post-processing using only the forecasted irradiance.
 
 In the following, I chose to always rely on the full configuration of the set of predictors. This is because I was working with only 5 predicting values and a feature selection is generally not advised when working with so few predictors.
-This is a strong choice that could be questioned if the situation made to work with much more predictors (more than 10), where a feature selection would be necessary, both for metrics and computational performances reasons.
+This is a strong choice that could be questioned if the situation were to work with much more predictors (more than 10), where a feature selection would be necessary, both for metrics and computational performances reasons.
 \paragraph{Influence of the learning period}
 \indent
 \begin{figure}[htb!]
@@ -184,15 +185,15 @@ Both \autoref{fig:matrix_period} and \autoref{fig:ss_period} go to show that a l
 the benefits from increasing the learning period do not prove to be significant.
 
 It is interesting to notice that a one-month learning period provides a negative post-processing.
-\paragraph{Influence of the window of learning}
+\paragraph{Influence of the learning window}
 \indent 
 
 Another question from Reuniwatt was the pertinence of a sliding learning window.
 
 I thus performed two types of learning:
 \begin{itemize}
-    \item A fixed-window learning where the testing period was the full year of 2021 and and the learning period was the full year of 2020.
-    \item A sliding-window learning where each month of the test 2021 year used a model trained during the moving year that preceded this month. For instance, March 2021 used a model trained from February 2020 to February 2021.
+    \item A fixed window learning where the testing period was the full year of 2021 and and the learning period was the full year of 2020.
+    \item A sliding window learning where each month of the test year 2021 used a model trained during the moving year that preceded this month. For instance, March 2021 used a model trained from February 2020 to February 2021.
 \end{itemize}
 \newpage
 \begin{figure}[htb!]
@@ -207,14 +208,14 @@ I thus performed two types of learning:
 \caption{Comparison of the MAE skill scores for a SVR model.}
 \end{figure}
 
-Interestingly, the fixed window performs best that the sliding window for all the study cases. 
+Interestingly, the fixed window performs best that the sliding window for all the study cases, even if the difference is nearly negligible.
 
 \paragraph{Influence of the NWP forecasting model}
 \indent
 
 All the previous optimisations were done on the GFS forecast, as it was explained in \autoref{sec:methodo}.
 
-Reuniwatt uses the data from several different numerical weather prediction (NWP) models, including ECMWF, AROME and ARPEGE.
+Reuniwatt uses the data from several different (NWP) models, including ECMWF, AROME and ARPEGE.
 It is interesting to see how our models perform on these different data sources.
 \begin{figure}[htb!]
     \centering
@@ -284,7 +285,9 @@ The loss function is the "epsilon insensitive" function and the other hyperparam
 \label{fig:ss_linear_rmse}
 \end{figure}
 
-While \autoref{fig:mat_linear_rmse} seems to indicate that some models such as "TweedieRegressor" may perform really better than "LinearRegression", a closer look thanks to \autoref{fig:ss_linear_rmse} shows that models from "LinearRegression" up to "TweedieRegressor" have really comparable performances, indeed almost identical. It's why it is the "LinearRegression" model that is kept for a RMSE minimisation because of its unbeatable computation time.\\
+While \autoref{fig:mat_linear_rmse} seems to indicate that some models such as "TweedieRegressor" may perform better than "LinearRegression", a closer look thanks to \autoref{fig:ss_linear_rmse} shows that models from "LinearRegression" up to "TweedieRegressor" have really comparable performances, almost identical actually. It's why it is the "LinearRegression" model that is kept for a RMSE minimisation because of its unbeatable computation time.\\
+
+A similar study to what we have performed in \autoref{subsubsec:pp}, replacing the Kalman filter linear model with the appropriate linear regression model, shows that the MAE optimisation is much better using machine learning. On the other hand, the MLP model and the least square regression share really similar results.
 
 Now that the appropriate linear model to use has been fixed, we can compare the results of our models with respect to the one currently used by Reuniwatt.  
 \newpage
@@ -297,8 +300,8 @@ The preference was given to the MLP model over the linear model concerning the R
 The following models are going to be assessed in this part:
 \begin{itemize}
     \item The linear model (different according to the considered metrics). It is learnt with the initial set of predictors described in \autoref{tab:set_pred}.
-    \item The best machine learning model (ie SVR for MAE and MLP for RMSE) learnt with the initial set of predictors. The NWP forecast model used for the irradiance used in the predictors set in the best one, in practise this means the ECMWF model.
-    \item The best machine learning model learnt with the concatenation of the initial set of preditors and all the other NWP models irradiance forecast available. This constitutes the big model where all the data is fed into it.
+    \item The best machine learning model (ie SVR for MAE and MLP for RMSE) learnt with the initial set of predictors. The NWP forecast model used for the irradiance used in the predictors set is the best one, in practise this means the ECMWF model.
+    \item The best machine learning model learnt with the concatenation of the initial set of predictors and all the other NWP models irradiance forecast available. This constitutes the big model where all the data is fed into it.
     \item The LT CONT model, learnt with the raw NWP models data.
     \item The LT CONT POST model, learnt with the improved NWP models data.
 \end{itemize}
@@ -333,7 +336,7 @@ Following the flow of the data that was available on my machine, I first perform
 \label{fig:evol_best_mae}
 \end{figure}
 \newpage
-\autoref{fig:ss_best_mae} shows that the MAE skill score is improved by a few percent both by the LT CONT POST and the ALL SVR model, which is the big model that takes as predictors all the NWP models. THE LT CONT POST and the ALL SVR model share nearly the same performances.
+\autoref{fig:ss_best_mae} shows that the MAE skill score is improved by a few percent both by the LT CONT POST and the ALL SVR model, which is the big model that takes as predictors all the NWP models. The LT CONT POST and the ALL SVR model share nearly the same performances.
 
 \autoref{fig:evol_best_mae} confirms that the LT CONT POST is able to improve the already improved ECMWF forecast, which was not obvious as a starting point.
 
@@ -354,10 +357,10 @@ Following the flow of the data that was available on my machine, I first perform
 \end{figure}
 
 \autoref{fig:ss_best_rmse} shows a less obvious contribution to our models comparatively to the LT CONT model for the 3 first study sites.
-However, site 4 is really promising since the skill score our models nearly doubles the  skill score of the LT CONT model. \\
+However, site 4 is really promising since the skill score of our models nearly doubles the  skill score of the LT CONT model. \\
 
 All in all, our 4 initial study cases demonstrated the potential benefits of our models, being the LT CONT POST and the big machine learning model, with respect to the LT CONT model.
-More validation sites are needed to be totally convinced of the prevalence of any of our model over the LT CONT model.
+More validation sites are needed to be totally convinced of the prevalence of our models over the LT CONT model.
 
 What is more, it's still difficult to say which one of our 2 models is the best.
 \newpage
@@ -395,12 +398,12 @@ It is really interesting to note that LT CONT POST performs much worse than the 
 
 Concerning the RMSE study, the MLP model performed worse than LT CONT for nearly all of the 25 models, but the big linear model actually provides minor improvements over all the 25 sites.
 
-It is highly interesting to see that, despite showcasing similar performances in \ref{sec:initial_study}, the MLP and linear models perform differently when it comes to the big study.
+It is highly interesting to see that, despite showcasing similar performances in \ref{sec:initial_study}, the MLP and linear models perform differently when it comes to handling big datasets.
 
 This may be due to a too simple hyperparameters search space for the MLP that can't perform well enough when scaling the model.\\
 
 It is now mandatory to check the good performances of the big linear model for our 4 inital study case, because the linear model studied in \ref{sec:initial_study} did not make advantage of all the NWP models for learning.
-\autoref{fig:ss_heatmap_linear} indeed shows the benefits of the big linear model also for the 4 initial study sites.
+\autoref{fig:ss_heatmap_linear} shows the benefits of the big linear model also for the 4 initial study sites.
 
 \begin{figure}[htb!]
     \centering

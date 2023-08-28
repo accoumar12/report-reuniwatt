@@ -2,9 +2,9 @@
 \label{sec:methodo}
 \subsection{Data source}
 \cite{verbois_statistical_2022} demonstrated that using a large set of predictors can significantly improve the performances of post-processing models, while \cite{suksamosorn_post-processing_2021}
-selected WRF forecasts of irradiance, temperature, relative humidity and the solar zenith angleas relevant inputs of the models.
+selected WRF forecasts of irradiance, temperature, relative humidity and the solar zenith angle as relevant inputs of the models.
 
-Our initial data source for the forecasts was GFS, and we opted for the following set of predictors (\ref{tab:set_pred}), both simple and easily available for any location.
+Our initial data source for the forecasts was GFS, and we opted for the following set of predictors (\autoref{tab:set_pred}), both simple and easily available for any location.
 
 The forecasted data is for each day the one relative to the origin 00:00 UTC of the day before. The irradiance explored during my internship is the global horizontal irradiance (GHI), which is
 the total solar radiation incident on a horizontal surface.
@@ -69,14 +69,14 @@ Skill scores relative to these metrics will be studied.
 Our bibliography study leads us toward the most relevant models to be tested.
 
 Concerning the reference model, \cite{lorenz_benchmarking_nodate} and others suggested the use of the persistence model, consisting in taking as prediction the latest measure available,
-but this model turned out to have too poor results to be a good reference model. I opted for using the raw forecasted value as the reference model.
+but this model turned out to have too poor results to be a good reference model. I opted for using the raw forecasted value as the reference model.\\
 
 \cite{suksamosorn_post-processing_2021} proposed a really interesting linear model based on a Kalman filter scheme. Hence the Kalman filter was first used as a promising linear model to be 
-assessed against heavier non-linear machine learning models.
+assessed against heavier non-linear machine learning models.\\
 
 On the hand of machine learning models, \cite{verbois_statistical_2022} distinguished the models effective to reduce the RMSE, including multi-layer perceptron (MLP) and gradient boosting machine (GBM),
 and the models promising for reducing the MAE, notably the standard vector regression (SVR).
-\cite{suksamosorn_post-processing_2021} also pointed out the effectiveness of the random forest (RF) model for a RMSE-optimization.
+\cite{suksamosorn_post-processing_2021} also pointed out the effectiveness of the random forest (RF) model for a RMSE optimization.\\
 
 It's why I am going to compare the following models, against the reference raw forecasted irradiance.
 \begin{itemize}
@@ -88,12 +88,12 @@ The correction procedure involves two groups of equations: time update equations
 and measurements update equations, time update equations are responsible for making
 a first guess of the next solar irradiance prediction error, based on the last state of the
 measured error and error covariance estimates, obtaining an a priori prediction for the next
-time step; the measurement update equations will then incorporate new measurements
+time step. The measurement update equations will then incorporate new measurements
 into the first guess, obtaining improved a posteriori predictions.
 
 My understanding of the general Kalman filter was greatly thanks to \cite{kfbasis}, and I practised the filter thanks to \cite{kfpractise}.
 
-In the context of irradiance forecasting, I followed the path followed by \cite{suksamosorn_post-processing_2021}.
+In the context of irradiance forecasting, I followed the path taken by \cite{suksamosorn_post-processing_2021}.
     \item Gradient boosting machine model (GBM).
 
 GBM creates an ensemble of weak learners, meaning that it combines several smaller, simpler models in order to obtain a more accurate prediction than what an individual model would produce. Gradient boosting works by iteratively training the weak learners on gradient-based functions and incorporating them into the model as “boosted” participants. 
@@ -114,17 +114,17 @@ Again, here is a link for a hands-on practise of the RF algorithm: \cite{RF}.
 The Multilayer Perceptron (MLP) is a type of artificial neural network used in machine learning. It consists of multiple layers of interconnected nodes (neurons) where each node computes a weighted sum of its inputs, passes it through an activation function, and then forwards the result to the next layer. MLPs are commonly used for various tasks such as classification, regression, and pattern recognition, and they can learn complex relationships in data. They can be trained using backpropagation, adjusting the weights between nodes to minimize the difference between predicted and actual outputs.
 
 \end{itemize}
-All this models will be compared during the internhip, and all the data wrangling architecture around it can be found either in the README or more specifically in the source code of my repo \cite{myrepo}.
+All these models will be compared during the internship, notably against the current model used by Reuniwatt (LT CONT) and all the data wrangling architecture around it can be found either in the README or more specifically in the source code of my repo \cite{myrepo}.
 
-\subsection{Model performances evaluation strategy}
+\subsection{Models performances evaluation strategy}
 The benchmarking consists in evaluating the performances on each metrics of each one of the model optimized with the corresponding metrics.
 
 A grid search which details can be explored in \cite{myrepo} is used for the learning year in order to find the best hyperparameters for any of the model.
-A cross-evalution is performed during the grid search, so I chose not to perform any cross-validation for the models testing.
+A cross-evaluation is performed during the grid search, so I chose not to perform any cross-validation for the models testing.
 
 We assess the performances of the trained models on their performances on the test year.
 
-The big picture will be given by a global significance matrix that will compare all the models performances regarding the particular metrics across the 4 sites.
+The big picture will be given by a global significance matrix that will compare all the models performances regarding the 2 metrics across the 4 sites.
 This matrix will allow us to discern the most pertinent models for each of our study metrics.
 Then, to verify that the models indeed perform well in the detail and across the different times of the day, we are going to plot scatter plots and data distributions of the MBE for each site.
 

@@ -1,10 +1,15 @@
 \section*{Abstract}
 \addcontentsline{toc}{section}{Abstract}
 
-For day-ahead forecasts, the combination of Numerical Weather Prediction (NWP) models and post-processing algorithms is the most effective method.
+For day-ahead forecasting, the combination of Numerical Weather Prediction (NWP) models and post-processing algorithms is the most popular method.
 
-However, it is hard to extract from all the literature on the subject the best algorithm to use because of the lack of consistency in the different approaches.\\ 
+However, it is hard to extract from all the literature on the subject the best algorithm to use because of the lack of consistency in the different approaches.
+Indeed different works use different datasets, metrics and even cross-validation methods. 
 
 During my internship, my mission was to investigate the best algorithms according to the literature so as to improve the day-ahead irradiance forecasts. 
+The comparison is initially conducted on 4 sites over the years 2021 and 2022, and aims at post-processing GFS forecasts data so as to lower both the mean average error (MAE) and the root mean square error (RMSE).
+I eventually studied the hybridation of different forecast NWP models (AROME, GFS, ARPEGE, ECMWF), on 25 more validation sites, in order to benchmark it against the current algorithm used by Reuniwatt.
 
-My final results demonstrated improved metrics in comparison to the current algorithm used by Reuniwatt.
+My final results demonstrated the benefits of post-processing both a single NWP model and several NWP models altogether.
+While a linear model perform good enough for a RMSE optimisation, a support vector regression (SVR) model proved its ability to lower the MAE.
+The ultimate model showcased improved metrics with respect to the current algorithm used by Reuniwatt.
